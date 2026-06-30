@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#heatmap {
+  margin-top: 20px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  min-width: 80px;
+}
+
+/* Heat colors */
+.score-1 { background-color: #f8d7da; } /* red */
+.score-2 { background-color: #f5c6cb; }
+.score-3 { background-color: #ffeeba; } /* yellow */
+.score-4 { background-color: #d4edda; }
+.score-5 { background-color: #c3e6cb; } /* green */
+
+input {
+  width: 40px;
+  text-align: center;
+}
