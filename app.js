@@ -186,7 +186,16 @@ function calculateEvaluation() {
     </p>
   `;
 
-  document.getElementById("evaluation").innerHTML = html;
+  let evaluationEl = document.getElementById("evaluation");
+  if (!evaluationEl) {
+    evaluationEl = document.createElement("div");
+    evaluationEl.id = "evaluation";
+    evaluationEl.className = "panel";
+    evaluationEl.style.marginTop = "20px";
+    document.body.appendChild(evaluationEl);
+  }
+
+  evaluationEl.innerHTML = html;
 }
 
 render();
