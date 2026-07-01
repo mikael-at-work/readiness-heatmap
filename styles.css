@@ -100,3 +100,11 @@ input {
 .l3 { background:#fff3cd; }
 .l4 { background:#d4edda; }
 .l5 { background:#b7e4c7; }
+
+#evaluation h3 {
+  margin-top: 0;
+}
+
+#evaluation ul {
+  padding-left: 18px;
+}

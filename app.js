@@ -120,4 +120,73 @@ function exportData() {
   alert("Copied to clipboard");
 }
 
+function calculateEvaluation() {
+  let totalScore = 0;
+  let totalCount = 0;
+
+  let capabilityResults = [];
+
+  capabilities.forEach(cap => {
+    let sum = 0;
+
+    dimensions.forEach(dim => {
+      let val = scores[cap][dim];
+      sum += val;
+
+      totalScore += val;
+      totalCount++;
+    });
+
+    let avg = sum / dimensions.length;
+
+    capabilityResults.push({
+      name: cap,
+      avg: avg.toFixed(1)
+    });
+  });
+
+  let overall = (totalScore / totalCount).toFixed(2);
+
+  let maturity = "";
+  if (overall < 2.5) maturity = "Low maturity (fragmented)";
+  else if (overall < 3.5) maturity = "Moderate maturity (developing)";
+  else if (overall < 4.5) maturity = "High maturity (controlled)";
+  else maturity = "Very high maturity (optimized)";
+
+  let weakest = capabilityResults
+    .sort((a, b) => a.avg - b.avg)
+    .slice(0, 2)
+    .map(c => `${c.name} (${c.avg})`)
+    .join(", ");
+
+  let html = `
+    <h3>Evaluation</h3>
+
+    <p><strong>Overall Readiness:</strong> ${overall} / 5</p>
+    <p><strong>Maturity Level:</strong> ${maturity}</p>
+
+    <h4>Capability Overview</h4>
+    <ul>
+      ${capabilityResults.map(c =>
+        `<li>${c.name}: ${c.avg}</li>`
+      ).join("")}
+    </ul>
+
+    <h4>Key Findings</h4>
+    <ul>
+      <li>Lowest maturity areas: ${weakest}</li>
+      <li>Variation across capabilities indicates uneven maturity</li>
+    </ul>
+
+    <h4>Interpretation</h4>
+    <p>
+      The organization shows <strong>${maturity}</strong>. 
+      Focus should be placed on improving the lowest scoring capabilities 
+      to achieve balanced and scalable readiness across the landscape.
+    </p>
+  `;
+
+  document.getElementById("evaluation").innerHTML = html;
+}
+
 render();
