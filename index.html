@@ -12,16 +12,46 @@
 
 <h1>Readiness Heatmap</h1>
 
-<div id="controls">
-  <button onclick="addCapability()">+ Capability</button>
-  <button onclick="addDimension()">+ Dimension</button>
+<div id="top-bar">
+
+  <!-- Controls -->
+  <div class="panel">
+    <h3>Controls</h3>
+    <button onclick="addCapability()">+ Capability</button><br><br>
+    <button onclick="addDimension()">+ Dimension</button><br><br>
+    <button onclick="exportData()">Export</button>
+  </div>
+
+  <!-- Legend -->
+  <div class="panel">
+    <h3>Legend (1–5 scale)</h3>
+
+    <div class="legend-item"><div class="legend-box l1"></div> 1 – Very Low (fragmented / missing)</div>
+    <div class="legend-item"><div class="legend-box l2"></div> 2 – Low (inconsistent)</div>
+    <div class="legend-item"><div class="legend-box l3"></div> 3 – Medium (defined)</div>
+    <div class="legend-item"><div class="legend-box l4"></div> 4 – High (controlled)</div>
+    <div class="legend-item"><div class="legend-box l5"></div> 5 – Very High (optimized)</div>
+
+    <p style="margin-top:10px;">👉 Higher = better readiness</p>
+  </div>
+
+  <!-- Instructions -->
+  <div class="panel">
+    <h3>How to use</h3>
+    <ul>
+      <li>Add capabilities (rows)</li>
+      <li>Add dimensions (columns)</li>
+      <li>Score each cell (1–5)</li>
+      <li>Identify gaps (low/red areas)</li>
+      <li>Use results for discussion & decisions</li>
+    </ul>
+  </div>
+
 </div>
 
 <div id="heatmap"></div>
 
-<!-- ✅ Correct JS link -->
 <script src="app.js"></script>
 
 </body>
 </html>
-``

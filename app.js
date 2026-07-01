@@ -1,5 +1,5 @@
-let capabilities = ["PIM", "CMS", "Integration"];
-let dimensions = ["Process", "Data", "Tech"];
+let capabilities = ["PIM", "CMS", "Integration", "Governance"];
+let dimensions = ["Process", "Data", "Technology", "Ownership"];
 
 let scores = {};
 
@@ -31,6 +31,10 @@ function render() {
     headerRow.appendChild(th);
   });
 
+  let avgHeader = document.createElement("th");
+  avgHeader.innerText = "Avg";
+  headerRow.appendChild(avgHeader);
+
   table.appendChild(headerRow);
 
   // Rows
@@ -52,7 +56,12 @@ function render() {
       input.value = value;
 
       input.onchange = (e) => {
-        scores[cap][dim] = parseInt(e.target.value);
+        let val = parseInt(e.target.value);
+
+        if (isNaN(val) || val < 1) val = 1;
+        if (val > 5) val = 5;
+
+        scores[cap][dim] = val;
         render();
       };
 
@@ -61,6 +70,20 @@ function render() {
 
       tr.appendChild(td);
     });
+
+    let total = 0;
+
+    dimensions.forEach(dim => {
+      total += scores[cap][dim];
+    });
+
+    let avg = (total / dimensions.length).toFixed(1);
+
+    let avgTd = document.createElement("td");
+    avgTd.innerText = avg;
+    avgTd.style.fontWeight = "bold";
+
+    tr.appendChild(avgTd);
 
     table.appendChild(tr);
   });
@@ -84,6 +107,17 @@ function addDimension() {
 
   dimensions.push(name);
   render();
+}
+
+function exportData() {
+  const data = {
+    capabilities,
+    dimensions,
+    scores
+  };
+
+  navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+  alert("Copied to clipboard");
 }
 
 render();
