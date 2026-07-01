@@ -66,6 +66,9 @@ function render() {
       };
 
       td.className = `score-${value}`;
+      if (value <= 2) {
+        td.style.border = "2px solid #ef4444";
+      }
       td.appendChild(input);
 
       tr.appendChild(td);
@@ -160,31 +163,33 @@ function calculateEvaluation() {
     .join(", ");
 
   let html = `
-    <h3>Evaluation</h3>
+  <h3>Readiness Assessment</h3>
 
-    <p><strong>Overall Readiness:</strong> ${overall} / 5</p>
-    <p><strong>Maturity Level:</strong> ${maturity}</p>
+  <p style="font-size:18px;">
+    <strong>${overall}</strong> / 5 → ${maturity}
+  </p>
 
-    <h4>Capability Overview</h4>
-    <ul>
-      ${capabilityResults.map(c =>
-        `<li>${c.name}: ${c.avg}</li>`
-      ).join("")}
-    </ul>
+  <p>
+    Overall capability maturity is <strong>${maturity}</strong>, with the most pressure on:
+    <strong>${weakest}</strong>
+  </p>
 
-    <h4>Key Findings</h4>
-    <ul>
-      <li>Lowest maturity areas: ${weakest}</li>
-      <li>Variation across capabilities indicates uneven maturity</li>
-    </ul>
+  <hr style="border:none;border-top:1px solid rgba(255,255,255,0.2); margin:15px 0"/>
 
-    <h4>Interpretation</h4>
-    <p>
-      The organization shows <strong>${maturity}</strong>. 
-      Focus should be placed on improving the lowest scoring capabilities 
-      to achieve balanced and scalable readiness across the landscape.
-    </p>
-  `;
+  <h4>Breakdown</h4>
+  <ul>
+    ${capabilityResults.map(c =>
+      `<li>${c.name}: <strong>${c.avg}</strong></li>`
+    ).join("")}
+  </ul>
+
+  <h4>What this means</h4>
+  <ul>
+    <li>Low scores indicate operational or structural gaps</li>
+    <li>Variation suggests lack of alignment across capabilities</li>
+    <li>Improving weakest areas will unlock system-wide maturity</li>
+  </ul>
+`;
 
   let evaluationEl = document.getElementById("evaluation");
   if (!evaluationEl) {
